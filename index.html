@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>百味云应用下载页</title>
+	<style type="text/css">
+		html,body {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.banner {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+
+		.opt {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			z-index: 100;
+			width: 100%;
+		}
+
+		.shape {
+			width: 100%;
+			height: auto;
+		}
+
+		.btn {
+			width: 80%;
+			height: auto;
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: auto;
+			z-index: 200;
+		}
+
+		.company {
+			font-size: 22px;
+			color: #b0b0b0;
+			position: absolute;
+			bottom: 20px;
+			margin: auto;
+			left: 0;
+			right: 0;
+			text-align: center;
+		}
+
+		.back-layer {
+			background: #000;
+			opacity: 0.4;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1000;
+			display: none;
+		}
+
+		.tip {
+			position: fixed;
+			right: 60px;
+			top: 20px;
+			z-index: 3000;
+			display: none;
+		}
+	</style>
+
+	<script>
+
+		window.onload=function () {
+			//根据参数判断要下载的是哪一个应用
+			var app = getQueryString("app");
+			document.getElementById("app").value = app;
+			if(app == "boss/"){
+				document.getElementById("boss").style.display="block";
+			}
+
+			if(app == "fastfood/"){
+				document.getElementById("fastfood").style.display="block";
+			}
+
+			if(app == "dinner/"){
+				document.getElementById("dinner").style.display="block";
+			}
+
+			//判断是否是微信扫描进入的页面,如果是,根据参数显示对应的图片,并给出提示.
+			var userAgent = navigator.userAgent;
+			if (userAgent.indexOf("MicroMessenger") > 0) {
+				document.getElementById("backLayer").style.display="block";
+				document.getElementById("tip").style.display="block";
+			}
+		};
+
+		function getQueryString(name){
+		   var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		   var r = window.location.search.substr(1).match(reg);
+		   if(r!=null){
+		   	return  unescape(r[2]);
+		   }else{
+		   	alert("参数错误");
+		   }
+		}
+
+		function downloadIOS(){
+			var app = document.getElementById("app").value;
+			if(app =="boss"){
+				window.location.href="https://itunes.apple.com/us/app/id1209812970?l=zh&ls=1&mt=8";
+			}
+
+			if(app =="fastfood"){
+				window.location.href="https://itunes.apple.com/us/app/id1218142762?l=zh&ls=1&mt=8";
+			}
+
+			if(app =="dinner"){
+				window.location.href="https://itunes.apple.com/us/app/id1209812954?l=zh&ls=1&mt=8";
+			}
+		}
+
+		function downloadAndroid(){
+			var app = document.getElementById("app").value;
+			if(app =="boss"){
+				window.location.href="http://image.51eparty.com/ypyzg.apk";
+			}
+
+			if(app =="fastfood"){
+				window.location.href="http://image.51eparty.com/ypyxefast.apk";
+			}
+
+			if(app =="dinner"){
+				window.location.href="http://image.51eparty.com/ypyct.apk";
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<div class="main">
+
+		<input type="hidden" id="app">
+		<img src="boss.jpg" class="banner" id="boss">
+		<img src="fastfood.jpg" class="banner" id="fastfood">
+		<img src="dinner.jpg" class="banner" id="dinner">
+
+		<div class="opt">
+			<img src="shape.png" class="shape">
+			<!-- 底部按钮 -->
+			<img src="ios.png" class="btn" style="bottom:280px;" onclick="downloadIOS()">
+			<img src="android.png" class="btn" style="bottom:110px;" onclick="downloadAndroid()">
+
+			<p class="company">百味云科技股份有限公司</p>
+		</div>
+		
+	</div>
+
+	<!-- 提示 -->
+	<img src="tip.png" class="tip" id="tip">
+
+	<!-- 背景图层 -->
+	<div class="back-layer" id="backLayer"></div>
+
+</body>
+</html>
